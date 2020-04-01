@@ -21,8 +21,6 @@ services:
     ports:
       - "8009:8009"
     command: python3 /app2/scrapy_weather.py
-  
-    #command: /usr/bin/python3 /app1/prediction.py
   mongo:
     image: 'mongo:3.4.1'
     container_name: 'mongo'
