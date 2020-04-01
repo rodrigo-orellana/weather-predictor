@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  flask_api1:
+    build: Dockerfiles/python-flask-pymongo
+    container_name: 'flask_api1'
+    volumes:
+      - '../src/app1:/app1'
+    links:
+      - mongo
+    ports:
+      - "8001:8001"
+    command: python3 /app1/prediction_visor.py
+  flask_api2:
+    build: Dockerfiles/python-flask-bs4
+    container_name: 'flask_api2'
+    volumes:
+      - '../src/app2:/app2'
+    links:
+      - mongo
+    ports:
+      - "8009:8009"
+    command: python3 /app2/scrapy_weather.py
+  
+    #command: /usr/bin/python3 /app1/prediction.py
+  mongo:
+    image: 'mongo:3.4.1'
+    container_name: 'mongo'
+    ports:
+      - '27017:27017'
+    #volumes:
+      #- 'mongo:/data/db'
+volumes:
+  #mongo:
+  app1:
+    driver: local
